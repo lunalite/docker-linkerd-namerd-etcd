@@ -1,22 +1,20 @@
-version: '2'
+version:     '2'
 
 services:
-  # an nginx service serving static content
   hello:
-    image: nginx
-    # mount the www directory as the static content to serve
-    volumes:
-    - ./www:/usr/share/nginx/html:ro
+    image:   nginx
+    volumes: ["./www:/usr/share/nginx/html:ro"]
 
-  # linkerd
-  l5d:
-    image: buoyantio/linkerd
-    ports:
-    - "4140:4140"
-    - "9990:9990"
-    # we must mount the config file and the disco directory
-    volumes:
-    - ./linkerd.yaml:/io.buoyant/linkerd.yaml:ro
-    - ./disco:/io.buoyant/disco
-    command: 
-      /io.buoyant/linkerd.yaml
+  linkerd:
+    image:   buoyantio/linkerd
+    container_name: linkerd
+    ports:   ["4140:4140", "9990:9990"]
+    volumes: ["./linkerd.yaml:/io.buoyant/linkerd.yaml:ro"]
+    command: /io.buoyant/linkerd.yaml
+
+  namerd:
+    image:   buoyantio/namerd
+    container_name: namerd
+    ports:   ["4100:4100", "4180:4180", "9991:9991"]
+    volumes: ["./namerd.yaml:/io.buoyant/namerd.yaml:ro","./disco:/io.buoyant/disco"]
+    command: /io.buoyant/namerd.yaml

@@ -1,0 +1,25 @@
+admin:
+  ip:         0.0.0.0
+  port:       9991
+
+storage:
+  kind:       io.l5d.inMemory
+  namespaces:
+    dev:      /in => /#/io.l5d.fs;
+  # kind:     io.l5d.etcd
+  # experimental: true
+  # host:     127.0.0.1
+  # port:     2379
+  # pathPrefix: /namerd/dtabs
+
+namers:
+- kind:       io.l5d.fs
+  rootDir:    /io.buoyant/disco
+
+interfaces:
+- kind:       io.l5d.httpController
+  port:       4180
+  ip:         0.0.0.0
+- kind:       io.l5d.thriftNameInterpreter
+  port:       4100
+  ip:         0.0.0.0
