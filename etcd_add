@@ -1,1 +1,4 @@
-curl -XPUT localhost:2379/v2/keys/namerd/dtabs/dev -d value="/in/hello=>/$/inet/hello/80"
+curl -XPUT localhost:2379/v2/keys/namerd/dtabs/dev -d value="\
+/out/hello=>/$/inet/linkerd/4141%3B\
+/in/out/hello=>/$/inet/hello/80%3B\
+"

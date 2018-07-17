@@ -1,18 +1,14 @@
-admin:
-  ip:           0.0.0.0
-  port:         9991
-
 storage:
-  kind:         io.l5d.etcd
+  kind: io.l5d.etcd
   experimental: true
-  host:         etcd
-  port:         2379
-  pathPrefix:   /namerd/dtabs
+  host: etcd
+  port: 2379
+  pathPrefix: /namerd/dtabs
 
 interfaces:
-- kind:         io.l5d.httpController
-  port:         4180
-  ip:           0.0.0.0
-- kind:         io.l5d.thriftNameInterpreter
-  port:         4100
-  ip:           0.0.0.0
+- kind: io.l5d.httpController
+  port: 4181
+  ip: 0.0.0.0
+- kind: io.l5d.thriftNameInterpreter
+  port: 4180
+  ip: 0.0.0.0

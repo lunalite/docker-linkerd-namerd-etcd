@@ -1,24 +1,37 @@
 admin:
-  ip:           0.0.0.0
-  port:         9990
+  ip: 0.0.0.0
+  port: 9990
 
 routers:
-- protocol:     http
-  label:        Incoming App A
-
-  # identifier:
-  #   kind:     io.l5d.header
-  #   header:   l5d-dst-service
+- protocol: http
+  label: incoming
+  dstPrefix: /in
+  identifier:
+    kind: io.l5d.header
+    header: l5d-dst-service
   interpreter:
-    kind:       io.l5d.namerd
-    dst:        /$/inet/namerd/4100
-    namespace:  dev
-  dstPrefix:    /in
+    kind: io.l5d.namerd
+    dst: /$/inet/namerd/4180
+    namespace: dev
   servers:
-  - ip:         0.0.0.0
-    port:       4140
+  - ip: 0.0.0.0
+    port: 4141
+
+- protocol: http
+  label: outgoing
+  dstPrefix: /out
+  identifier:
+    kind: io.l5d.header.token
+    header: Host
+  interpreter:
+    kind: io.l5d.namerd
+    dst: /$/inet/namerd/4180
+    namespace: dev
+  servers:
+  - ip: 0.0.0.0
+    port: 4140
 
 telemetry:
-  - kind:       io.l5d.recentRequests
+  - kind: io.l5d.recentRequests
     sampleRate: 1.0
-    capacity:   10
+    capacity: 10
